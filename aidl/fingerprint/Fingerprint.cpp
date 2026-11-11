@@ -226,6 +226,13 @@ void Fingerprint::notify(const fingerprint_msg_t* msg) {
 }
 
 ndk::ScopedAStatus Fingerprint::getSensorProps(std::vector<SensorProps>* out) {
+    // Without a HAL module there is no sensor, and sessions can't be created.
+    if (!mDevice) {
+        ALOGE("No fingerprint HAL module, not advertising a sensor");
+        *out = {};
+        return ndk::ScopedAStatus::ok();
+    }
+
     std::vector<common::ComponentInfo> componentInfo = {
             {HW_COMPONENT_ID, HW_VERSION, FW_VERSION, SERIAL_NUMBER, "" /* softwareVersion */},
             {SW_COMPONENT_ID, "" /* hardwareVersion */, "" /* firmwareVersion */,
