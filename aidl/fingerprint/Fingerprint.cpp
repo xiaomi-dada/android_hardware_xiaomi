@@ -15,6 +15,10 @@
 #include <android-base/properties.h>
 #include <android-base/strings.h>
 
+#include <algorithm>
+#include <vector>
+
+using ::android::base::GetProperty;
 using ::android::base::SetProperty;
 
 namespace aidl::android::hardware::biometrics::fingerprint {
@@ -49,7 +53,18 @@ Fingerprint::Fingerprint(std::shared_ptr<FingerprintConfig> config) : mConfig(st
     if (mDevice) {
         ALOGI("fingerprint HAL already opened");
     } else {
-        for (auto& [module] : kModules) {
+        // Opening a module initializes its sensor even when another one is
+        // fitted, so start with the module that was opened last time.
+        const std::string lastVendor = GetProperty("persist.vendor.sys.fp.vendor", "");
+        std::vector<std::string> modules;
+        for (const auto& [module] : kModules) {
+            modules.emplace_back(module);
+        }
+        std::stable_partition(modules.begin(), modules.end(), [&](const std::string& module) {
+            return ::android::base::Split(module, ":")[0] == lastVendor;
+        });
+
+        for (const auto& module : modules) {
             std::string class_name;
             std::string class_module_id;
 
