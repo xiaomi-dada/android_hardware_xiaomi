@@ -1,0 +1,10 @@
+#
+# SPDX-FileCopyrightText: The LineageOS Project
+# SPDX-License-Identifier: Apache-2.0
+#
+
+service vendor.ir-default /vendor/bin/hw/android.hardware.ir-service.xiaomi
+    class hal
+    user system
+    group system
+    shutdown critical
