@@ -1,0 +1,23 @@
+//
+// SPDX-FileCopyrightText: The LineageOS Project
+// SPDX-License-Identifier: Apache-2.0
+//
+
+cc_binary {
+    name: "vendor.xiaomi.hardware.misys.common-service.xiaomi",
+    relative_install_path: "hw",
+    init_rc: ["vendor.xiaomi.hardware.misys.common-service.xiaomi.rc"],
+    vintf_fragments: ["vendor.xiaomi.hardware.misys.common-service.xiaomi.xml"],
+    srcs: [
+        "MiSys.cpp",
+        "service.cpp",
+    ],
+    shared_libs: [
+        "libbase",
+        "libbinder_ndk",
+        "libcutils",
+        "liblog",
+        "vendor.xiaomi.hardware.misys.common-V1-ndk",
+    ],
+    vendor: true,
+}

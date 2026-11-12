@@ -1,0 +1,5 @@
+service vendor.misys-hal /vendor/bin/hw/vendor.xiaomi.hardware.misys.common-service.xiaomi
+    interface aidl vendor.xiaomi.hardware.misys.common.IMiSysImpl/default
+    class hal
+    user system
+    group system

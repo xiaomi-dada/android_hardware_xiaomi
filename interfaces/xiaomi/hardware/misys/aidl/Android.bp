@@ -1,0 +1,27 @@
+//
+// SPDX-FileCopyrightText: The LineageOS Project
+// SPDX-License-Identifier: Apache-2.0
+//
+
+aidl_interface {
+    name: "vendor.xiaomi.hardware.misys.common",
+    vendor_available: true,
+    srcs: ["vendor/xiaomi/hardware/misys/common/*.aidl"],
+    stability: "vintf",
+    owner: "xiaomi",
+    backend: {
+        cpp: {
+            enabled: false,
+        },
+        java: {
+            enabled: false,
+        },
+    },
+    versions_with_info: [
+        {
+            version: "1",
+            imports: [],
+        },
+    ],
+    frozen: true,
+}
