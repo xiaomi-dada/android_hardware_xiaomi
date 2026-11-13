@@ -1,0 +1,21 @@
+//
+// SPDX-FileCopyrightText: The LineageOS Project
+// SPDX-License-Identifier: Apache-2.0
+//
+
+cc_binary {
+    name: "vendor.lineage.powershare-service.xiaomi",
+    vintf_fragments: ["vendor.lineage.powershare-service.xiaomi.xml"],
+    init_rc: ["vendor.lineage.powershare-service.xiaomi.rc"],
+    vendor: true,
+    relative_install_path: "hw",
+    srcs: [
+        "PowerShare.cpp",
+        "service.cpp",
+    ],
+    shared_libs: [
+        "libbase",
+        "libbinder_ndk",
+        "vendor.lineage.powershare-V1-ndk",
+    ],
+}
